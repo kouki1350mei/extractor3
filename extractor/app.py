@@ -5,9 +5,14 @@ import requests
 from PIL import Image
 from io import BytesIO
 
-# Firebase接続
+# Firebase接続（secretsの内容確認用デバッグ付き）
 if not firebase_admin._apps:
-    firebase_secret = st.secrets["FIREBASE_CREDENTIALS"]  # ← json.loads() は不要！
+    firebase_secret = st.secrets["FIREBASE_CREDENTIALS"]
+
+    # ✅ デバッグ用：型と中身を表示（Streamlit上に出る）
+    st.write("firebase_secret の型:", type(firebase_secret))
+    st.write("firebase_secret の中身:", firebase_secret)
+
     cred = credentials.Certificate(firebase_secret)
     firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://product-categorizer-bb01c-default-rtdb.asia-southeast1.firebasedatabase.app/'
